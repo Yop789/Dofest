@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import User from "../models/User";
-import * as CryptoJS from 'crypto-js';
+import * as CryptoJS from "crypto-js";
 
 export async function createUser(req: Request, res: Response) {
   console.log("Saving User");
@@ -45,24 +45,22 @@ export async function autentificarse(
   req: Request,
   res: Response
 ): Promise<any> {
-  
   const { E_mail, Password } = req.body;
   console.log(E_mail);
   try {
     const user = await User.find({ E_mail: E_mail }, function (err, doc) {
-      let d= desemcriptar(doc[0].Password);
-      let d2=desemcriptar(Password)
-      if (!doc) {
-        return res.json({ message: "Email incorrecto" });        
+      let d = desemcriptar(doc[0]?.Password);
+      let d2 = desemcriptar(Password);
+      if (d==="no hay datos") {
+        return res.json({ message: "Email incorrecto" });
       } else if (d !== d2) {
         return res.json({ message: "Contraseña incorrecta" });
       } else {
-        return res.json({ doc,message: "session started correctly" });
+        return res.json({ doc, message: "session started correctly" });
       }
     });
-    
   } catch (error) {
-    console.error(error);   
+    console.error(error);
   }
 }
 export async function getUser(req: Request, res: Response): Promise<Response> {
@@ -118,10 +116,11 @@ export async function updateUser(
     updateUser,
   });
 }
-export function desemcriptar(t:string){
-  const secretKey='YourSecretKeyForEncryption&Descryption'
-  return CryptoJS.AES.decrypt(t, secretKey.trim()).toString(
-    CryptoJS.enc.Utf8
-  );
+export function desemcriptar(t: string) {
+  if (t) {
+    const secretKey = "YourSecretKeyForEncryption&Descryption";
+    return CryptoJS.AES.decrypt(t, secretKey.trim()).toString(
+      CryptoJS.enc.Utf8
+    );
+  } else return "no hay datos"
 }
-

@@ -42,7 +42,9 @@ export async function getCarts(req: Request, res: Response): Promise<Response> {
 export async function getCartIdCostumer(req: Request, res: Response): Promise<Response> {
   const { IdCustomer } = req.body;
   const cart = await Carts.find({ IdCustomer: req.body.IdCustomer }, {});
-  return res.json(cart);
+  if(cart.length !==0){
+    return res.json(cart)
+  }else return res.json({message:'Nu hay camionsito precargado'});
 }
 
 export async function getCart(req: Request, res: Response): Promise<Response> {
@@ -57,7 +59,7 @@ export async function deleteCart(
   res: Response
 ): Promise<Response> {
   const { id } = req.params;
-  const cart = await Carts.findByIdAndRemove(id);
+  const cart = await Carts.deleteMany({IdCustomer:id});
   return res.json({
     message: "Cart Delete",
     cart,
@@ -70,7 +72,6 @@ export async function updateCart(
 ): Promise<Response> {
   const { id } = req.params;
   const {
-    IdCustomer,
     Products: [{
       IdProducts,
       Name,
@@ -79,12 +80,7 @@ export async function updateCart(
       Total,
       UrlImage }]
   } = req.body;
-  const updateCart = await Carts.findByIdAndUpdate(
-    id,
-    {
-      IdCustomer,
-      Products: req.body.Products,
-    },
+  const updateCart = await Carts.updateMany({IdCustomer:id},{Products: req.body.Products},
     { new: true }
   );
   return res.json({
