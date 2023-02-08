@@ -5,8 +5,10 @@ const user = new Schema({
 	LastName: 	String,
     E_mail:		String,
 	Password: 	String,
-	Latitude: 	Number,
-	Lenght: 	Number,
+	Municipio: 	String,
+    Comunidad: 	String,
+    Calle: 		String,
+    Numero: 	String,
 	Customer: 	Boolean,
 	Admin: 		Boolean
 },{collection:'users',
@@ -18,8 +20,10 @@ interface IUser extends Document{
 	LastName:   string,
     E_mail:     string,
 	Password: 	string,
-	Latitude:   number,
-	Lenght:     number,
+	Municipio:  String,
+    Comunidad:  String,
+    Calle:      String,
+    Numero:     String,
 	Customer:   boolean,
 	Admin:      boolean
 }

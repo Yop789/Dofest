@@ -10,8 +10,10 @@ export async function createUser(req: Request, res: Response) {
     LastName,
     E_mail,
     Password,
-    Latitude,
-    Lenght,
+    Municipio,
+    Comunidad,
+    Calle,
+    Numero,
     Customer,
     Admin,
   } = req.body;
@@ -20,8 +22,10 @@ export async function createUser(req: Request, res: Response) {
     LastName: LastName,
     E_mail: E_mail,
     Password: Password,
-    Latitude: Latitude,
-    Lenght: Lenght,
+    Municipio: Municipio,
+    Comunidad: Comunidad,
+    Calle: Calle,
+    Numero: Numero,
     Customer: Customer,
     Admin: Admin,
   };
@@ -51,7 +55,7 @@ export async function autentificarse(
     const user = await User.find({ E_mail: E_mail }, function (err, doc) {
       let d = desemcriptar(doc[0]?.Password);
       let d2 = desemcriptar(Password);
-      if (d==="no hay datos") {
+      if (d === "no hay datos") {
         return res.json({ message: "Email incorrecto" });
       } else if (d !== d2) {
         return res.json({ message: "Contraseña incorrecta" });
@@ -92,8 +96,10 @@ export async function updateUser(
     LastName,
     E_mail,
     Password,
-    Latitude,
-    Lenght,
+    Municipio,
+    Comunidad,
+    Calle,
+    Numero,
     Customer,
     Admin,
   } = req.body;
@@ -104,8 +110,10 @@ export async function updateUser(
       LastName,
       E_mail,
       Password,
-      Latitude,
-      Lenght,
+      Municipio,
+      Comunidad,
+      Calle,
+      Numero,
       Customer,
       Admin,
     },
@@ -116,11 +124,11 @@ export async function updateUser(
     updateUser,
   });
 }
-export function desemcriptar(t: string) {
+export function desemcriptar(t:string) {
   if (t) {
     const secretKey = "YourSecretKeyForEncryption&Descryption";
     return CryptoJS.AES.decrypt(t, secretKey.trim()).toString(
       CryptoJS.enc.Utf8
     );
-  } else return "no hay datos"
+  } else return "no hay datos";
 }
