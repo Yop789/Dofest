@@ -9,6 +9,7 @@ const user = new Schema({
     Comunidad: 	String,
     Calle: 		String,
     Numero: 	String,
+	Telefone: 	String,
 	Customer: 	Boolean,
 	Admin: 		Boolean
 },{collection:'users',
@@ -20,10 +21,11 @@ interface IUser extends Document{
 	LastName:   string,
     E_mail:     string,
 	Password: 	string,
-	Municipio:  String,
-    Comunidad:  String,
-    Calle:      String,
-    Numero:     String,
+	Municipio:  string,
+    Comunidad:  string,
+    Calle:      string,
+    Numero:     string,
+	Telefone: 	string,
 	Customer:   boolean,
 	Admin:      boolean
 }

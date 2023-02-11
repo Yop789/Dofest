@@ -14,6 +14,7 @@ export async function createUser(req: Request, res: Response) {
     Comunidad,
     Calle,
     Numero,
+    Telefone,
     Customer,
     Admin,
   } = req.body;
@@ -26,6 +27,7 @@ export async function createUser(req: Request, res: Response) {
     Comunidad: Comunidad,
     Calle: Calle,
     Numero: Numero,
+    Telefone:Telefone,
     Customer: Customer,
     Admin: Admin,
   };
@@ -100,6 +102,7 @@ export async function updateUser(
     Comunidad,
     Calle,
     Numero,
+    Telefone,
     Customer,
     Admin,
   } = req.body;
@@ -114,6 +117,7 @@ export async function updateUser(
       Comunidad,
       Calle,
       Numero,
+      Telefone,
       Customer,
       Admin,
     },
